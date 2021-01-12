@@ -32,7 +32,7 @@ for column in columns:
     print(column["name"], column["type"])
 
 # Save reference to the table
-space_launches = Base.classes.Space_Corrected
+Space_Corrected = Base.classes.Space_Corrected
 # SpaceCorrected = Base.classes.SpaceMissions
 
 #################################################
@@ -57,7 +57,7 @@ def names():
 
     """Return a list of all passenger names"""
     # Query all passengers
-    results = session.execute(session.query(space_launches)).fetchall()
+    results = session.execute(session.query(Space_Corrected)).fetchall()
 
     session.close()
     df = pd.DataFrame(results,columns=[c["name"] for c in columns])
@@ -68,6 +68,43 @@ def names():
     all_names = list(np.ravel(results))
 
     return df.to_json(orient="records")
+
+
+
+
+
+@app.route("/api/v1.0/successfullaunches")
+def successfullaunches():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of all passenger names"""
+    # Query all passengers
+    
+    results = session.execute(session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label("Total")).filter(Space_Corrected.StatusMission == 'Success').group_by(Space_Corrected.Country)).fetchall()
+    
+    session.close()
+
+# session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label('total')).filter(Space_Corrected.StatusMission>50).group_by(Expense.date).all()
+
+
+    print(results)
+    
+    # df = pd.DataFrame(results,columns=[c["name"] for c in columns])
+    # print(list(df.values))
+
+
+    # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    success_results = []
+    for Country, Total in results:
+        results_dict = {}
+        results_dict ["Country"]=Country
+        results_dict ["Success"]=Total
+        success_results.append(results_dict)
+
+    return jsonify(success_results)
+    # return df.to_json(orient="records")
 
 
 @app.route("/api/v1.0/passengers")
