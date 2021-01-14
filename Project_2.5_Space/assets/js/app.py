@@ -70,12 +70,6 @@ def names():
     return df.to_json(orient="records")
 
 
-<<<<<<< HEAD:Project_2.5_Space/assets/js/app.py
-# @app.route("/api/v1.0/passengers")
-# def passengers():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-=======
 
 
 
@@ -117,7 +111,6 @@ def successfullaunches():
 def passengers():
     # Create our session (link) from Python to the DB
     session = Session(engine)
->>>>>>> e4f40d7bc7202bfa8409c1f09449aacdc33759be:Project_2.5_Space/app.py
 
 #     """Return a list of passenger data including the name, age, and sex of each passenger"""
 #     # Query all passengers
