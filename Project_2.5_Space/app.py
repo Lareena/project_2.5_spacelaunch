@@ -78,9 +78,8 @@ def successfullaunches():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all passenger names"""
-    # Query all passengers
-    
+    """Return a list of the number of Successful Space Launches by Country"""
+    # Query all Successful Launches
     results = session.execute(session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label("Total")).filter(Space_Corrected.StatusMission == 'Success').group_by(Space_Corrected.Country)).fetchall()
     
     session.close()
@@ -107,27 +106,62 @@ def successfullaunches():
     # return df.to_json(orient="records")
 
 
+@app.route("/api/v1.0/statusmission")
+def statusmission():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    """Return a list of the number of Launches by StatusMission"""
+    # Query all StatusMission
+    results = session.execute(session.query(Space_Corrected.StatusMission, func.count(Space_Corrected.StatusMission).label("Total")).group_by(Space_Corrected.StatusMission).order_by("Total")).fetchall()
+    
+    session.close()
+
+# session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label('total')).filter(Space_Corrected.StatusMission>50).group_by(Expense.date).all()
+
+
+    print(results)
+    
+    # df = pd.DataFrame(results,columns=[c["name"] for c in columns])
+    # print(list(df.values))
+
+
+    # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    statusmission_results = []
+    for StatusMission, Total in results:
+        results_dict = {}
+        results_dict ["Space Launches"]=Total
+        results_dict ["Mission Status"]=StatusMission
+        statusmission_results.append(results_dict)
+
+    return jsonify(statusmission_results)
+    # return df.to_json(orient="records")
+
+
+
+
 @app.route("/api/v1.0/passengers")
 def passengers():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-#     """Return a list of passenger data including the name, age, and sex of each passenger"""
-#     # Query all passengers
-#     results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
+    """Return a list of passenger data including the name, age, and sex of each passenger"""
+    # Query all passengers
+    results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
 
-#     session.close()
+    session.close()
 
-#     # Create a dictionary from the row data and append to a list of all_passengers
-#     all_passengers = []
-#     for name, age, sex in results:
-#         passenger_dict = {}
-#         passenger_dict["name"] = name
-#         passenger_dict["age"] = age
-#         passenger_dict["sex"] = sex
-#         all_passengers.append(passenger_dict)
+    # Create a dictionary from the row data and append to a list of all_passengers
+    all_passengers = []
+    for name, age, sex in results:
+        passenger_dict = {}
+        passenger_dict["name"] = name
+        passenger_dict["age"] = age
+        passenger_dict["sex"] = sex
+        all_passengers.append(passenger_dict)
 
-#     return jsonify(all_passengers)
+    return jsonify(all_passengers)
 
 
 if __name__ == '__main__':

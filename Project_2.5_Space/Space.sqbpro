@@ -18,8 +18,6 @@ where StatusMission=&quot;Success&quot;
 SELECT * from join_tables
 where StatusMission=&quot;Failure&quot;
 
-
-
 </sql><sql name="SQL 1 (1)">Create VIEW join_tables as
 Select * from SpaceMissions sm, Space_Corrected sc
 where sm.PrimaryKey=sc.ChangeKey
@@ -40,15 +38,15 @@ select Country, count(StatusMission) &quot;Number of Successful Launches&quot; f
 WHERE StatusMission=&quot;Success&quot;
 Group by Country 
 HAVING count(StatusMission)&gt; 50
-order by 2 desc</sql><sql name="# StatusMission">SELECT StatusMission, count(StatusMission) &quot;Launches&quot; from Space_Corrected
+order by 2 desc</sql><sql name="# StatusMission">Select StatusMission, count(StatusMission) &quot;Launches&quot; from Space_Corrected
 Group by StatusMission
-order by 2 desc</sql><sql name="Success Rate/Company">SELECT StatusMission, count(StatusMission) &quot;Launches&quot; from Space_Corrected
-Group by StatusMission
-
-Select CompanyName, count(StatusMission) / (select count(StatusMission) from Space_Corrected)
-from Space_Corrected
-Group by CompanyName
-
-
-
-</sql><current_tab id="4"/></tab_sql></sqlb_project>
+order by 2 desc</sql><sql name="Success Rate/Company">select * from Space_Corrected
+
+select * from Space_Corrected
+where country=&quot;USA&quot;
+
+select Country, count(StatusMission) &quot;Number of Successful Launches&quot; from Space_Corrected
+WHERE StatusMission=&quot;Success&quot;
+Group by Country 
+HAVING count(StatusMission)&gt; 50
+order by 2 desc</sql><current_tab id="3"/></tab_sql></sqlb_project>
