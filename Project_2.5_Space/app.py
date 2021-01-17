@@ -2,9 +2,11 @@ import numpy as np
 
 import sqlalchemy
 import pandas as pd
+import plotly_express as px
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, inspect
+
 
 from flask import Flask, jsonify, render_template
 
@@ -138,6 +140,40 @@ def statusmission():
     return jsonify(statusmission_results)
     # return df.to_json(orient="records")
 
+
+
+
+# @app.route("/api/v1.0/rates")
+# def statusmission():
+#     # Create our session (link) from Python to the DB
+#     session = Session(engine)
+
+#     """Return a list of the number of Launches by StatusMission"""
+#     # Query all StatusMission
+#     results = session.execute(session.query(Space_Corrected.StatusMission, func.count(Space_Corrected.StatusMission).label("Total")).group_by(Space_Corrected.StatusMission).order_by("Total")).fetchall()
+    
+#     session.close()
+
+# # session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label('total')).filter(Space_Corrected.StatusMission>50).group_by(Expense.date).all()
+
+
+#     print(results)
+    
+#     # df = pd.DataFrame(results,columns=[c["name"] for c in columns])
+#     # print(list(df.values))
+
+
+    # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    successrate_results = []
+    for StatusMission, Total in results:
+        results_dict = {}
+        results_dict ["Rate of Success"]=Total
+        results_dict ["Company"]=CompanyName
+        successrate_results.append(results_dict)
+
+    return jsonify(successrate_results)
+    # return df.to_json(orient="records")
 
 
 # from homework, delete before submit!!!!

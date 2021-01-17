@@ -32,11 +32,11 @@
           </div>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-12">
         <div id="bar-plot"></div>
       </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
+      <div class="col-md-12">
+        <div id="piechart"></div>
       </div>
     </div>
     <div class="row">
@@ -46,9 +46,12 @@
     </div>
   </div>
 
+
+
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./assets/js/app.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
 
 </body>
 
