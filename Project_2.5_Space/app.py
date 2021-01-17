@@ -143,36 +143,36 @@ def statusmission():
 
 
 
-# @app.route("/api/v1.0/rates")
-# def statusmission():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+@app.route("/api/v1.0/company")
+def company():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
 
-#     """Return a list of the number of Launches by StatusMission"""
-#     # Query all StatusMission
-#     results = session.execute(session.query(Space_Corrected.StatusMission, func.count(Space_Corrected.StatusMission).label("Total")).group_by(Space_Corrected.StatusMission).order_by("Total")).fetchall()
+    """Return a list of the number of Launches by StatusMission"""
+    # Query all StatusMission
+    results = session.execute(session.query(Space_Corrected.CompanyName, func.count(Space_Corrected.StatusMission).label("Total")).filter(Space_Corrected.StatusMission == 'Success').group_by(Space_Corrected.CompanyName).order_by("CompanyName")).fetchall()
     
-#     session.close()
+    session.close()
 
-# # session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label('total')).filter(Space_Corrected.StatusMission>50).group_by(Expense.date).all()
+#  session.query(Space_Corrected.Country, func.count(Space_Corrected.StatusMission).label('total')).filter(Space_Corrected.StatusMission>50).group_by(Expense.date).all()
 
 
-#     print(results)
+    print(results)
     
-#     # df = pd.DataFrame(results,columns=[c["name"] for c in columns])
-#     # print(list(df.values))
+    # df = pd.DataFrame(results,columns=[c["name"] for c in columns])
+    # print(list(df.values))
 
 
     # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
-    successrate_results = []
-    for StatusMission, Total in results:
+    company_results = []
+    for CompanyName, Total in results:
         results_dict = {}
-        results_dict ["Rate of Success"]=Total
+        results_dict ["Number of Successful Launches"]=Total
         results_dict ["Company"]=CompanyName
-        successrate_results.append(results_dict)
+        company_results.append(results_dict)
 
-    return jsonify(successrate_results)
+    return jsonify(company_results)
     # return df.to_json(orient="records")
 
 

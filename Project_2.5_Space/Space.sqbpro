@@ -38,15 +38,27 @@ select Country, count(StatusMission) &quot;Number of Successful Launches&quot; f
 WHERE StatusMission=&quot;Success&quot;
 Group by Country 
 HAVING count(StatusMission)&gt; 50
-order by 2 desc</sql><sql name="# StatusMission">Select StatusMission, count(StatusMission) &quot;Launches&quot; from Space_Corrected
-Group by StatusMission
-order by 2 desc</sql><sql name="Success Rate/Company">select * from Space_Corrected
-
-select * from Space_Corrected
-where country=&quot;USA&quot;
-
-select Country, count(StatusMission) &quot;Number of Successful Launches&quot; from Space_Corrected
-WHERE StatusMission=&quot;Success&quot;
-Group by Country 
-HAVING count(StatusMission)&gt; 50
-order by 2 desc</sql><current_tab id="3"/></tab_sql></sqlb_project>
+order by 2 desc</sql><sql name="# StatusMission">Select StatusMission, count(StatusMission) &quot;Launches&quot; from Space_Corrected
+Group by StatusMission
+order by 2 desc</sql><sql name="Success Rate/Company">_TotalCount QU
+select Space_Corrected.CompanyName, count(*)AS TotalCount
+From Space_Corrected
+group by Space_Corrected.CompanyName
+
+_Success
+SELECT CompanyName, count(StatusMission) AS SuccessCount from Space_Corrected
+where StatusMission=&quot;Success&quot;
+group by CompanyName
+
+SELECT SuccessCount.Company Name, SuccessCount.SuccessCount, TotalCount.TotalCount, format((SuccessCount/TotalCount),&quot;Percent&quot;) AS SuccessRate
+FROM TotalCount INNER JOIN SuccessCount ON TotalCount.Company Name=SuccessCount.Company Name
+
+
+_TotalCount QU
+SELECT Space_Corrected.Company Name, Space_Corrected.Status_Mission, Count(*) AS Count
+FROM Space_Corrected
+GROUP BY Space_Corrected.Company Name, Space_Corrected.Status_Mission
+SELECT StatusCount.Status_Mission, StatusCount.Count, TotalCount.TotalCount, ([StatusCount]![Count]/[TotalCount]![TotalCount]) AS SuccessRate, Format([SuccessRate],&quot;Percent&quot;) AS RatePercent
+FROM TotalCount INNER JOIN StatusCount ON TotalCount.[Company Name] = StatusCount.[Company Name]
+WHERE (((StatusCount.Status_Mission)=&quot;Success&quot;))
+</sql><current_tab id="4"/></tab_sql></sqlb_project>
