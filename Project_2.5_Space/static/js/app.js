@@ -1,5 +1,5 @@
-// var CountryObj = [];
-// var StatusMissionObj = [];
+var CountryObj = [];
+var StatusMissionObj = [];
 
 // async function chart() {
 //   const dataset = await d3.json("/api/v1.0/successfullaunches")
@@ -22,7 +22,7 @@ d3.json("/api/v1.0/successfullaunches").then((samplesData) => {
   console.log("there is something going on" + error);
 });
 
-function plotTopTen(samples,country){
+function plotTopTen(samples, country){
 
   // Sort the objects by sample_value and then slice the top ten
   var sortedById = samples.sort((a,b) => b.Success - a.Success);
@@ -72,22 +72,30 @@ function plotTopTen(samples,country){
 var statusObj=[]
 d3.json("/api/v1.0/statusmission").then((statusData) => {
   
-  var data = statusData;
-  console.log(data);
+   var statusdata = statusData;
+   console.log(statusdata);
 
-  data.forEach(obj => statusObj.push(obj));
-  // console.log(samplesObj);
-  plotPie(statusObj);
-  // plotBubbleChart(samplesObj);
-}).catch(function (error){
-  console.log("there is something going on" + error);
-});
+//   data.forEach(obj => statusObj.push(obj));
+//   plotPie(statusObj);
+// }).catch(function (error){
+//   console.log("there is something going on" + error);
+// });
 
-function plotPie(statusData,country){
+// function plotPie(){
 
-// Grab the data for the pie chart.
 
-  var piedata
+// }
+
+// //Grab the data for the pie chart.
+//   var trace2 = {
+
+//   }
+
+
+
+// //data to be used for the plot
+
+//   var chartData = [trace2];
 
 
 
