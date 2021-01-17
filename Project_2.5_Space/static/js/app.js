@@ -9,27 +9,14 @@ var StatusMissionObj = [];
 
 // chart()
 var samplesObj=[]
-d3.json("/api/v1.0/successfullaunches").then((samplesData) => {
-  
-  var data = samplesData;
-  console.log(data);
 
-  data.forEach(obj => samplesObj.push(obj));
-  // console.log(samplesObj);
-  plotTopTen(samplesObj);
-  // plotBubbleChart(samplesObj);
-}).catch(function (error){
-  console.log("there is something going on" + error);
-});
 
 function plotTopTen(samples, country){
-
   // Sort the objects by sample_value and then slice the top ten
   var sortedById = samples.sort((a,b) => b.Success - a.Success);
   var slicedTopTen = sortedById.slice(0,10);
   var reversedTopTen = slicedTopTen.reverse();
   
-
     // Trace1 for the Top Ten Data
   var trace1 = {
       y: reversedTopTen.map(row => row.Success),
@@ -70,32 +57,52 @@ function plotTopTen(samples, country){
 
 
 var statusObj=[]
-d3.json("/api/v1.0/statusmission").then((statusData) => {
+
+
+function plotPie(data) {
+  console.log(data);
+  //Grab the data for the pie chart.
+  var space_launches = data.map(d => d['Space Launches']);
+  var mission_status = data.map(d => d['Mission Status']);
+
+  var pieData = [{
+    values: space_launches,
+    labels: mission_status,
+    type: 'pie'
+  }]
   
-   var statusdata = statusData;
-   console.log(statusdata);
+  var layout = {
+    height: 700,
+    width: 600
+  }
+  
+  Plotly.newPlot('piechart', pieData, layout)
+}
 
-//   data.forEach(obj => statusObj.push(obj));
-//   plotPie(statusObj);
-// }).catch(function (error){
-//   console.log("there is something going on" + error);
-// });
+function init() {
+  d3.json("/api/v1.0/successfullaunches").then((samplesData) => {
+    // console.log(samplesObj);
+    plotTopTen(samplesData);
+    // plotBubbleChart(samplesObj);
+  }).catch(function (error){
+    console.log("there is something going on" + error);
+  });
+  d3.json("/api/v1.0/statusmission").then((statusData) => {
+    plotPie(statusData);
+  }).catch(function (error){
+    console.log("there is something going on" + error);
+  });
+}
 
-// function plotPie(){
+init()
 
-
-// }
-
-// //Grab the data for the pie chart.
-//   var trace2 = {
-
-//   }
+ 
 
 
 
 // //data to be used for the plot
 
-//   var chartData = [trace2];
+  // var chartData = [trace2];
 
 
 
