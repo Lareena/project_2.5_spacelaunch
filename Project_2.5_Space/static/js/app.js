@@ -104,7 +104,44 @@ function init() {
 
 init()
 
- 
+// function plotCompany(launches, company){
+//   // Sort the objects by sample_value and then slice the top ten
+//   var sortedById = launches.sort((a,b) => b.Success - a.Success);
+//   var slicedTopTen = sortedById.slice(0,10);
+//   var reversedTopTen = slicedTopTen.reverse();
+//     // Trace1 for the Top Ten Data
+//   var trace1 = {
+//       y: reversedTopTen.map(row => row.Success),
+//       x: reversedTopTen.map(row => row.Company),
+//       text: reversedTopTen.map(row => row.Company),
+//       name: launch,
+//       marker:{
+//       'color': "#1F618D",
+//     },
+//       type: "bar",
+//       orientation: "h" ,
+//   };
+//   // data to be used for the plot
+//   var chartData = [trace1];
+//   // Apply the group bar mode to the layout
+//   var layout = {
+//       title: 'Company with Successful Launches',
+//       // This is for the hover label!!!!
+//       hoverlabel:{
+//           bgcolor: "white",
+//           font: {color: 'purple'}
+//       },
+//       margin: {
+//       l: 70,
+//       r: 70,
+//       t: 30,
+//       b: 100
+//       }
+//   };
+//   // Render the plot to the div tag with id "bar-plot"
+//   Plotly.newPlot("bar-plot", chartData, layout);
+//   return reversedTopTen;
+// }
 
 
 
