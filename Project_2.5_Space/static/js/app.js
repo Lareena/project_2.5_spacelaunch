@@ -68,7 +68,15 @@ function plotPie(data) {
   var pieData = [{
     values: space_launches,
     labels: mission_status,
-    type: 'pie'
+    type: 'pie',
+    title: {
+      text: "Mission Status for Space Launches",
+      font: {
+        color: 'red',
+        size: 40,
+        style: 'bold',
+      },
+    },
   }]
   
   var layout = {

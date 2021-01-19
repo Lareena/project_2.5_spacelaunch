@@ -67,12 +67,9 @@ def names():
 
 
     # Convert list of tuples into normal list
-    all_names = list(np.ravel(results))
+    # all_names = list(np.ravel(results))
 
     return df.to_json(orient="records")
-
-
-
 
 
 @app.route("/api/v1.0/successfullaunches")
