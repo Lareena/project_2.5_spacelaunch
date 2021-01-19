@@ -1,5 +1,4 @@
-# project_2.5_spacelaunch
-Space Missions: 1957 to 2020
+# Space Missions: 1957 to 2020
 
 For this project we created an interactive dashboard, Space Missions using SQLite, Flask-powered APIs and JavaScript. Space_Corrected.csv was the data we used from a previous ETL assignment which contained over 4,000 records of data for space launches from all countries and includes recent launches from the company SpaceX. There was another file, SpaceMissions.csv but this only contained data for launches from the United States so, we decided to not run queries from this table. After we imported Space_Corrected.csv into SQLite and created a database we were able to execute create queries to parse through the data and bring up specific information we needed. We used Group by and the Where clause in SQL to filter our data by country and company name. After we created our queries, we created an engine and setup Flask in Python to be able to create specific Flask routes linked to each query. The three routes we created is what we would be using to 
 
